@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>后台管理</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all"/>
+</head>
+<body class="main_body">
+<!--<button class="layui-btn">导出</button>-->
+<input type=button onclick="javascript:excel()" th:value="导出"/>
+<table class="layui-table" width="500px">
+    <thead>
+    <tr>
+        <th>区域</th>
+        <th>设备箱编号</th>
+        <th>接入层交换机IP</th>
+        <th>摄像机编号</th>
+        <th>产品序号</th>
+        <th>摄像机IP</th>
+        <th>备注</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="c,cStat:${cameraList}">
+        <td th:text="${c.cameraEq.eqArea.areaName}"></td>
+        <td th:text="${c.cameraEq.eqNumber}"></td>
+        <td th:text="${c.cameraEq.eqInterchangerIP}"></td>
+        <td th:text="${c.cameraNumber}"></td>
+        <td th:text="${c.cameraProductNumber}"></td>
+        <td th:text="${c.cameraIP}"></td>
+        <td th:text="${c.cameraComment}"></td>
+    </tr>
+    </tbody>
+</table>
+<script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+<script>
+    function excel() {
+        window.location.href="/excelExport";
+    }
+</script>
+</body>
+</html>
