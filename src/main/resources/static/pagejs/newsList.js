@@ -6,8 +6,6 @@ layui.config({
         laypage = layui.laypage,
         $ = layui.jquery;
 
-
-    alert("newsList.js");
     //加载页面数据
     var newsData = '';
     $.get("/area/selAreaList", function (data) {     //  ../../json/newsList.json
@@ -274,24 +272,26 @@ layui.config({
     function newsList(that) {
         //渲染数据
         function renderDate(data, curr) {
+            alert(123);
+
             var dataHtml = '';
             if (!that) {
                 currData = newsData.concat().splice(curr * nums - nums, nums);
             } else {
                 currData = that.concat().splice(curr * nums - nums, nums);
             }
-
-
+            alert(currData.length);
             if (currData.length != 0) {
+                alert(currData[0].eqNumber);
                 for (var i = 0; i < currData.length; i++) {
-                    for(var eq in currData[i].areaEqlist){
-                        for (var cm in eq.eqCameraList){
+                    for (var eq in currData[i].areaEqlist) {
+                        for (var cm in eq.eqCameraList) {
                             dataHtml += '<tr>'
                                 + '<td><input type="checkbox" name="checked" lay-skin="primary" lay-filter="choose"></td>'
                                 + '<td align="left">' + currData[i].areaName + '</td>'
                                 + '<td>' + eq.eqNumber + '</td>'
                                 + '<td>' + eq.eqInterchangerIP + '</td>'
-                                + '<td>' + cm.cameraNumber+'</td>'
+                                + '<td>' + cm.cameraNumber + '</td>'
                                 + '<td>'
                                 + '<a class="layui-btn layui-btn-mini news_edit"><i class="iconfont icon-edit"></i> 编辑</a>'
                                 + '<a class="layui-btn layui-btn-normal layui-btn-mini news_collect"><i class="layui-icon">&#xe600;</i> 收藏</a>'
@@ -316,6 +316,7 @@ layui.config({
             cont: "page",
             pages: Math.ceil(newsData.length / nums),
             jump: function (obj) {
+                alert(123);
                 $(".news_content").html(renderDate(newsData, obj.curr));
                 $('.news_list thead input[type="checkbox"]').prop("checked", false);
                 form.render();

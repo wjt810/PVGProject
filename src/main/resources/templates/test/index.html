@@ -12,10 +12,53 @@
     <meta name="format-detection" content="telephone=no">
     <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all"/>
+    <link rel="stylesheet" th:href="@{/css/font_eolqem241z66flxr.css}" media="all"/>
 </head>
+<style>
+    input[type=button]{
+        /*background-image: linear-gradient(#f5c153, #ea920d);*/
+        display: inline-block;
+        padding: .3em .5em;
+        background-image: linear-gradient(#ddd, #bbb);
+        border: 1px solid rgba(0,0,0,.2);
+        border-radius: .3em;
+        box-shadow: 0 1px white inset;
+        text-align: center;
+        text-shadow: 0 1px 1px black;
+        color:white;
+        font-weight: bold;
+    }
+</style>
 <body class="main_body">
-<!--<button class="layui-btn">导出</button>-->
-<input type=button onclick="javascript:excel()" th:value="导出"/>
+<div>
+    <form>
+        <div class="layui-form-item">
+                <label class="layui-form-label">选择关键字</label>
+            <div class="layui-input-inline"  style="width: 120px;">
+                <select name="browseLook" class="layui-select newsLook" lay-filter="browseLook">
+                    <option value="0">--请选择--</option>
+                    <option value="1">区域</option>
+                    <option value="2">设备箱编号</option>
+                    <option value="3">接入层交换机IP</option>
+                    <option value="4">摄像机编号</option>
+                    <option value="5">产品序号</option>
+                    <option value="6">摄像机IP</option>
+                    <option value="7">备注</option>
+                </select>
+            </div>
+
+            <div class="layui-inline">
+                <input type="text" class="layui-input text" lay-verify="required" placeholder="请输入查询内容">
+            </div>
+            <div class="layui-inline">
+                <input type="button" onclick="javascript:sel()" th:value="查询"/>
+            </div>
+            <div class="layui-inline">
+                <input type="button" onclick="javascript:excel()" th:value="导出"/>
+            </div>
+        </div>
+    </form>
+</div>
 <table class="layui-table" width="500px">
     <thead>
     <tr>
@@ -29,7 +72,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="c,cStat:${cameraList}">
+    <tr th:each="c ,cStat:${cameraList}">
         <td th:text="${c.cameraEq.eqArea.areaName}"></td>
         <td th:text="${c.cameraEq.eqNumber}"></td>
         <td th:text="${c.cameraEq.eqInterchangerIP}"></td>
@@ -43,7 +86,7 @@
 <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
 <script>
     function excel() {
-        window.location.href="/excelExport";
+        window.location.href="/excel/excelExport";
     }
 </script>
 </body>

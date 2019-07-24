@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/area")
 public class AreaController {
 
-    @Resource
+    /*@Resource
     public AreaService areaService;
 
     @RequestMapping("/selAreaList")
@@ -27,7 +27,7 @@ public class AreaController {
         List<Area> alist = areaService.areaList(null);
         mv.addObject("alist",alist);
         System.out.println("区域\t\t设备箱编号\t\t摄像机编号");
-        /*for (Area a : alist) {
+        for (Area a : alist) {
             System.out.println(a.getAreaName());
             for (Equipmentbox eq : a.getAreaEqlist()) {
                 System.out.println("\t\t\t\t"+eq.getEqNumber());
@@ -35,9 +35,9 @@ public class AreaController {
                     System.out.println("\t\t\t\t\t\t"+eq.getEqNumber());
                 }
             }
-        }*/
+        }
         return mv;
-    }
+    }*/
 
 
 

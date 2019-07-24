@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import java.util.List;
 
-@Controller("camera")
+@Controller
+@RequestMapping("/camera")
 public class CameraController {
     @Resource
     public CameraService cameraService;
@@ -24,5 +25,4 @@ public class CameraController {
         }*/
         return "/test/index";
     }
-
 }

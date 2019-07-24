@@ -15,12 +15,13 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Controller
+@RequestMapping("/excel")
 public class ExcelController {
 
     @Resource
     private CameraService cameraService;
 
-    @RequestMapping("/excelExport")
+    @RequestMapping("excelExport")
     public void excelExport(HttpServletRequest request , HttpServletResponse response){
         // 获取到 list 数据
         List<Camera> cameraList = cameraService.cameraList(null);
