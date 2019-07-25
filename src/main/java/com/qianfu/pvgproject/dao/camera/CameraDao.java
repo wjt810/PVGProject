@@ -1,10 +1,12 @@
 package com.qianfu.pvgproject.dao.camera;
 
 import com.qianfu.pvgproject.pojo.Camera;
+import jdk.nashorn.internal.objects.annotations.Where;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.jdbc.SQL;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CameraDao {
 
@@ -38,15 +40,16 @@ public interface CameraDao {
                 if(eqId!=null){
                     WHERE("camera_eq_id = #{eqId}");
                 }
+
             }}.toString();
         }
 
-        public String cameraList(Integer cameraId){
+        public String cameraList(@Param("cameraId") Integer cameraId){
             return new SQL(){{
                 SELECT("*");
                 FROM("camera");
-                if(cameraId!=null){
-                    WHERE("camera_id = #{cameraID}");
+                if(cameraId !=null){
+                    WHERE("camera_id = #{cameraId}");
                 }
             }}.toString();
         }

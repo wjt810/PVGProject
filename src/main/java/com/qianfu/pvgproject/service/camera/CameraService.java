@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface CameraService {
 
-    public List<Camera> cameraList(Integer cameraId);
+    List<Camera> cameraList(Integer cameraId);
 }

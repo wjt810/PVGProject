@@ -24,7 +24,7 @@ public class ExcelController {
     @RequestMapping("excelExport")
     public void excelExport(HttpServletRequest request , HttpServletResponse response){
         // 获取到 list 数据
-        List<Camera> cameraList = cameraService.cameraList(null);
+        List<Camera> cameraList = null; // cameraService.cameraList(null);
 
         //======================EXCEL表导出核心代码====================
         //   声明一个Excel

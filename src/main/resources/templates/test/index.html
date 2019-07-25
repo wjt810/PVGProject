@@ -33,22 +33,22 @@
 <div>
     <form>
         <div class="layui-form-item">
-                <label class="layui-form-label">选择关键字</label>
+                <label class="layui-form-label">选择字段</label>
             <div class="layui-input-inline"  style="width: 120px;">
-                <select name="browseLook" class="layui-select newsLook" lay-filter="browseLook">
-                    <option value="0">--请选择--</option>
-                    <option value="1">区域</option>
-                    <option value="2">设备箱编号</option>
-                    <option value="3">接入层交换机IP</option>
-                    <option value="4">摄像机编号</option>
-                    <option value="5">产品序号</option>
-                    <option value="6">摄像机IP</option>
-                    <option value="7">备注</option>
+                <select name="field" id="field" class="layui-select field" lay-filter="browseLook">
+                    <option value="null">--请选择--</option>
+                    <option value="areaName">区域</option>
+                    <option value="eqNumber">设备箱编号</option>
+                    <option value="eqInterchangerIP">接入层交换机IP</option>
+                    <option value="cameraNumber">摄像机编号</option>
+                    <option value="cameraProductNumber">产品序号</option>
+                    <option value="cameraIP">摄像机IP</option>
+                    <option value="cameraComment">备注</option>
                 </select>
             </div>
 
             <div class="layui-inline">
-                <input type="text" class="layui-input text" lay-verify="required" placeholder="请输入查询内容">
+                <input type="text" id="text" class="layui-input text" lay-verify="required" th:value="null" placeholder="请输入查询内容">
             </div>
             <div class="layui-inline">
                 <input type="button" onclick="javascript:sel()" th:value="查询"/>
@@ -84,9 +84,29 @@
     </tbody>
 </table>
 <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-1.8.2.min.js}"></script>
 <script>
+    // 进入页面，首先查询数据进行展示
+    sel();
+
+    // 将数据导出 到excel表格
     function excel() {
         window.location.href="/excel/excelExport";
+    }
+    
+    function sel() {
+        var field = $('.field option:selected').val();
+        var text = $('.text').value;
+        // alert(field+""+text);
+        $.ajax({
+            type: "GET",
+            url: "/camera/selCamera",
+            data: {"field":field,"text":text},
+            dataType: "json",
+            success: function(data){
+                alert(data);
+            }
+        })
     }
 </script>
 </body>

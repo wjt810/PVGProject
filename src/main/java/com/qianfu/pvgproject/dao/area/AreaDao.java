@@ -1,7 +1,6 @@
 package com.qianfu.pvgproject.dao.area;
 
 import com.qianfu.pvgproject.pojo.Area;
-import jdk.nashorn.internal.objects.annotations.Where;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -45,13 +44,12 @@ public interface AreaDao {
             }}.toString();
         }
 
-        public String getAreaById(Integer id){
+        public String getAreaById(@Param("id")Integer id){
             return new SQL(){{
                 SELECT("*");
                 FROM("area");
-                WHERE("area_id = #{id}");
+                WHERE("area_id = "+id);
             }}.toString();
         }
     }
-
 }

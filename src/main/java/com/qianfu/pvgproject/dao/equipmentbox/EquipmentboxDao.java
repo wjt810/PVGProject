@@ -4,8 +4,6 @@ import com.qianfu.pvgproject.pojo.Equipmentbox;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.jdbc.SQL;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.awt.*;
 import java.util.List;
 
 public interface EquipmentboxDao {
@@ -73,11 +71,12 @@ public interface EquipmentboxDao {
             return sql;
         }
 
-        public String getEqById(Integer id){
+        public String getEqById(@Param("eqId") Integer eqId){
             return new SQL(){{
                 SELECT("*");
                 FROM("equipmentbox");
-                WHERE("eq_id = #{id}");
+                WHERE("eq_id = "+eqId);
+
             }}.toString();
         }
     }
