@@ -25,8 +25,9 @@ public class CameraController {
                                 @RequestParam(value = "field",required = false) String field, @RequestParam(value = "text",required = false) String text){
         System.out.println(field+"\t"+text);
         List<Camera> cameraList = cameraService.cameraList(null);
-        if (field!=null&text!=null){
-            cameraList = selCameraByField(cameraList,field,text);
+        if (field != null && text!=null && field!="" && text!=""){
+            // 判断用户选择的字段
+            cameraList = chooseField(cameraList,field,text);
         }
         /*System.out.println("摄像机编号\t 设备箱 \t 区域");
         for (Camera c: cameraList) {
@@ -35,56 +36,101 @@ public class CameraController {
         return cameraList;
     }
 
-    // 根据前端选择的字段进行 模糊查询
-    private List<Camera> selCameraByField(List<Camera> cameraList,String field,String text){
+    // 判断用户选择的字段
+    private List<Camera> chooseField(List<Camera> cameraList,String field,String text){
         List<Camera> cameras = null;
         if(field.equals("areaName")){
-            for (Camera c: cameraList) {
-                if(c.getCameraEq().getEqArea().getAreaName().equals(text)){
-                    cameras.add(c);
-                }
-            }
+            cameras = selAreaName(cameraList,text);
+            return cameras;
         }
         if(field.equals("eqNumber") ){
-            for (Camera c: cameraList) {
-                if(c.getCameraEq().getEqNumber().equals(text)){
-                    cameras.add(c);
-                }
-            }
+            cameras = selEqNumber(cameraList,text);
+            return cameras;
         }
         if(field.equals("eqInterchangerIP") ){
-            for (Camera c: cameraList) {
-                if(c.getCameraEq().getEqInterchangerIP().equals(text)){
-                    cameras.add(c);
-                }
-            }
+            cameras = selEqInterchangerIP(cameraList,text);
+            return cameras;
         }
         if(field.equals("cameraNumber") ){
-            for (Camera c: cameraList) {
-                if(c.getCameraNumber().equals(text)){
-                    cameras.add(c);
-                }
-            }
+            cameras = selCameraNumber(cameraList,text);
+            return cameras;
         }
         if(field.equals("cameraProductNumber") ){
-            for (Camera c: cameraList) {
-                if(c.getCameraProductNumber().equals(text)){
-                    cameras.add(c);
-                }
-            }
+            cameras = selCameraProductNumber(cameraList,text);
+            return cameras;
         }
         if(field.equals("cameraIP") ){
-            for (Camera c: cameraList) {
-                if(c.getCameraIP().equals(text)){
-                    cameras.add(c);
-                }
-            }
+            cameras = selCameraIP(cameraList,text);
+            return cameras;
         }
         if(field.equals("cameraComment") ){
-            for (Camera c: cameraList) {
-                if(c.getCameraComment().equals(text)){
-                    cameras.add(c);
-                }
+            cameras = selCameraComment(cameraList,text);
+            return cameras;
+        }
+        return null;
+    }
+
+
+    // 根据前端选择的字段进行 模糊查询
+    private List<Camera> selAreaName(List<Camera> cameraList,String text) {
+        List<Camera> cameras = null;
+        for (Camera c : cameraList) {
+            if (c.getCameraEq().getEqArea().getAreaName().equals(text)) {
+                cameras.add(c);
+            }
+        }
+        return cameras;
+    }
+    private List<Camera> selEqNumber(List<Camera> cameraList,String text) {
+        List<Camera> cameras = null;
+        for (Camera c : cameraList) {
+            if (c.getCameraEq().getEqNumber().equals(text)) {
+                cameras.add(c);
+            }
+        }
+        return cameras;
+    }
+    private List<Camera> selEqInterchangerIP(List<Camera> cameraList,String text) {
+        List<Camera> cameras = null;
+        for (Camera c : cameraList) {
+            if (c.getCameraEq().getEqInterchangerIP().equals(text)) {
+                cameras.add(c);
+            }
+        }
+        return cameras;
+    }
+    private List<Camera> selCameraNumber(List<Camera> cameraList,String text) {
+        List<Camera> cameras = null;
+        for (Camera c : cameraList) {
+            if (c.getCameraNumber().equals(text)) {
+                cameras.add(c);
+            }
+        }
+        return cameras;
+    }
+    private List<Camera> selCameraProductNumber(List<Camera> cameraList,String text) {
+        List<Camera> cameras = null;
+        for (Camera c : cameraList) {
+            if (c.getCameraProductNumber().equals(text)) {
+                cameras.add(c);
+            }
+        }
+        return cameras;
+    }
+    private List<Camera> selCameraIP(List<Camera> cameraList,String text) {
+        List<Camera> cameras = null;
+        for (Camera c : cameraList) {
+            if (c.getCameraIP().equals(text)) {
+                cameras.add(c);
+            }
+        }
+        return cameras;
+    }
+    private List<Camera> selCameraComment(List<Camera> cameraList,String text) {
+        List<Camera> cameras = null;
+        for (Camera c : cameraList) {
+            if (c.getCameraComment().equals(text)) {
+                cameras.add(c);
             }
         }
         return cameras;

@@ -48,7 +48,7 @@
             </div>
 
             <div class="layui-inline">
-                <input type="text" id="text" class="layui-input text" lay-verify="required" th:value="null" placeholder="请输入查询内容">
+                <input type="text" id="selText" class="layui-input selText" lay-verify="required" placeholder="请输入查询内容">
             </div>
             <div class="layui-inline">
                 <input type="button" onclick="javascript:sel()" th:value="查询"/>
@@ -62,6 +62,7 @@
 <table class="layui-table" width="500px">
     <thead>
     <tr>
+        <th>序号</th>
         <th>区域</th>
         <th>设备箱编号</th>
         <th>接入层交换机IP</th>
@@ -71,16 +72,7 @@
         <th>备注</th>
     </tr>
     </thead>
-    <tbody>
-    <tr th:each="c ,cStat:${cameraList}">
-        <td th:text="${c.cameraEq.eqArea.areaName}"></td>
-        <td th:text="${c.cameraEq.eqNumber}"></td>
-        <td th:text="${c.cameraEq.eqInterchangerIP}"></td>
-        <td th:text="${c.cameraNumber}"></td>
-        <td th:text="${c.cameraProductNumber}"></td>
-        <td th:text="${c.cameraIP}"></td>
-        <td th:text="${c.cameraComment}"></td>
-    </tr>
+    <tbody class="cameraList" id="cameraList">
     </tbody>
 </table>
 <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
@@ -96,15 +88,27 @@
     
     function sel() {
         var field = $('.field option:selected').val();
-        var text = $('.text').value;
-        // alert(field+""+text);
+        var selText = $('#selText').val();
         $.ajax({
             type: "GET",
             url: "/camera/selCamera",
-            data: {"field":field,"text":text},
+            data: {"field": field, "text": selText},
             dataType: "json",
-            success: function(data){
-                alert(data);
+            success: function (data) {
+                var html = "";
+                for(var i=0;i<data.length;i++) {
+                    html += "<tr>";
+                    html += "<td>"+(i+1)+"</td>";
+                    html += "<td>"+data[i].cameraEq.eqArea.areaName+"</td>";
+                    html += "<td>"+data[i].cameraEq.eqNumber+"</td>";
+                    html += "<td>"+data[i].cameraEq.eqInterchangerIP+"</td>";
+                    html += "<td>"+data[i].cameraNumber+"</td>";
+                    html += "<td>"+data[i].cameraProductNumber+"</td>";
+                    html += "<td>"+data[i].cameraIP+"</td>";
+                    html += "<td>"+data[i].cameraComment+"</td>";
+                    html += "</tr>";
+                }
+                $('.cameraList').html(html);
             }
         })
     }

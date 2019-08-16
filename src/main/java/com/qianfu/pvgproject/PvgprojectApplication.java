@@ -10,6 +10,7 @@ public class PvgprojectApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(PvgprojectApplication.class, args);
+        System.out.println("首页进入地址：http://localhost:8888/index");
     }
 
 }
