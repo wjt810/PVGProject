@@ -62,7 +62,6 @@
 <table class="layui-table" width="500px">
     <thead>
     <tr>
-        <th>序号</th>
         <th>区域</th>
         <th>设备箱编号</th>
         <th>接入层交换机IP</th>
@@ -91,22 +90,28 @@
         var selText = $('#selText').val();
         $.ajax({
             type: "GET",
-            url: "/camera/selCamera",
+            url: "/area/selAreaList",
             data: {"field": field, "text": selText},
             dataType: "json",
             success: function (data) {
                 var html = "";
-                for(var i=0;i<data.length;i++) {
-                    html += "<tr>";
-                    html += "<td>"+(i+1)+"</td>";
-                    html += "<td>"+data[i].cameraEq.eqArea.areaName+"</td>";
-                    html += "<td>"+data[i].cameraEq.eqNumber+"</td>";
-                    html += "<td>"+data[i].cameraEq.eqInterchangerIP+"</td>";
-                    html += "<td>"+data[i].cameraNumber+"</td>";
-                    html += "<td>"+data[i].cameraProductNumber+"</td>";
-                    html += "<td>"+data[i].cameraIP+"</td>";
-                    html += "<td>"+data[i].cameraComment+"</td>";
-                    html += "</tr>";
+                for(var a = 0;a<data.length;a++) {
+                    var areas = data[a];                            // 当前循环的 区域
+                    for (var e = 0;e<areas.areaEqlist.length;e++) {
+                        var eqs = areas.areaEqlist[e];              // 当前循环的 设备箱
+                        for (var c = 0; c < eqs.eqCameraList.length;c++) {
+                            var cameras = eqs.eqCameraList[c];      // 当前循环的 摄像机
+                            html += "<tr>";
+                            html += "<td>" + areas.areaName + "</td>";
+                            html += "<td>" + eqs.eqNumber + "</td>";
+                            html += "<td>" + eqs.eqInterchangerIP + "</td>";
+                            html += "<td>" + cameras.cameraNumber + "</td>";
+                            html += "<td>" + cameras.cameraProductNumber + "</td>";
+                            html += "<td>" + cameras.cameraIP + "</td>";
+                            html += "<td>" + cameras.cameraComment + "</td>";
+                            html += "</tr>";
+                        }
+                    }
                 }
                 $('.cameraList').html(html);
             }

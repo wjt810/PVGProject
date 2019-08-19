@@ -16,6 +16,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/camera")
 public class CameraController {
+    /*
     @Resource
     public CameraService cameraService;
 
@@ -29,10 +30,6 @@ public class CameraController {
             // 判断用户选择的字段
             cameraList = chooseField(cameraList,field,text);
         }
-        /*System.out.println("摄像机编号\t 设备箱 \t 区域");
-        for (Camera c: cameraList) {
-            System.out.println(c.getCameraNumber()+"\t"+c.getCameraEq().getEqNumber()+"\t"+c.getCameraEq().getEqArea().getAreaName());
-        }*/
         return cameraList;
     }
 
@@ -69,7 +66,6 @@ public class CameraController {
         }
         return null;
     }
-
 
     // 根据前端选择的字段进行 模糊查询
     private List<Camera> selAreaName(List<Camera> cameraList,String text) {
@@ -135,4 +131,5 @@ public class CameraController {
         }
         return cameras;
     }
+*/
 }
